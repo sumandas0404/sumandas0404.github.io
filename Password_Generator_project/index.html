@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="favicon" href="">
+    <i class="fa-solid fa-lock-keyhole"></i>
+    
+</head>
+<body>
+    
+    <div class="container">
+
+        <h1>Password Generator</h1>
+
+        <div class="display-container">
+
+            <input readonly placeholder="Password" class="display" data-passwordDisplay>
+
+            <button class="copyBtn" data-copy>
+                <span class="tooltip" data-copyMsg></span>
+                <img src="./assets/copy.svg" alt="copy" width="23" height="23">
+            </button>
+
+        </div>
+
+
+        <div class="input-container">
+
+            <!--password length section-->
+            <div class="length-container">
+                <p>Password Length</p>
+                <p data-lengthNumber>0</p>
+            </div>
+            
+            <!--slider-->
+            <input type="range" min="1" max="20" class="slider" step="1" data-lengthSlider>
+
+            <!-- checkboxes-->
+            <div class="check">
+                <input type="checkbox" id="uppercase">
+                <label for="uppercase">Includes Uppercase letters</label>
+            </div>
+
+            <div class="check">
+                <input type="checkbox" id="lowercase">
+                <label for="lowercase">Includes Lowercase letters</label>
+            </div>
+
+            <div class="check">
+                <input type="checkbox" id="numbers">
+                <label for="numbers">Includes Numbers </label>
+            </div>
+
+            <div class="check">
+                <input type="checkbox" id="symbols">
+                <label for="symbols">Includes Symbols </label>
+            </div>
+
+            <!-- strength section-->
+            <div class="strength-container">
+                <p>Strength</p>
+                <div class="indicator" data-indicator></div>
+            </div>
+
+            <!-- generate password-->
+            <button class="generateButton">Generate Password</button>
+
+        </div>
+
+        <!-- <footer>
+            <div class="copyright">
+                Copyright &#169 Suman Das
+            
+            
+            <br> <br> 
+            <div class="icon">
+                <a href="https://www.instagram.com/sumondas0404/" target="_blank">
+                    <!-- <img src="https://seeklogo.com/images/I/instagram-logo-3368394263-seeklogo.com.png?v=638029198710000000" alt=""  class="logo"> -->
+                    <!-- <i class="fa-brands fa-square-instagram"></i>
+                </a>
+            </div>
+            <div class="icon">
+                <a href="https://www.linkedin.com/in/suman-das-82480a224"target="_blank">
+                    <img src="data:image/png;base64,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" alt=""  class="logo">
+                </a>
+            </div>       
+            <div class="icon">
+                <a href="https://www.facebook.com/profile.php?id=100075867442618&mibextid=ZbWKwL" target="_blank">
+                    <img src="data:image/png;base64,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" alt="" class="logo">
+                </a> 
+            </div>  -->
+
+        <!-- </div>
+        </footer> --> 
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/58a810656e.js" crossorigin="anonymous"></script>
+</body>
+</html>
